@@ -194,11 +194,11 @@ class PersonsComponent extends Component {
 	 	
 		$query = "SELECT pra.person_id, pra.research_area_id
 				  FROM person_research_area pra
-				  WHERE research_area_id =1
+				  WHERE research_area_id = " . $compSciId . "
 				  AND person_id NOT IN (
 				      SELECT person_id
 					  FROM person_research_area
-   				      WHERE research_area_id = 2
+   				      WHERE research_area_id = " . $bioId . "
                   )";
 				  
 	    $results = $this->Person->query($query);
