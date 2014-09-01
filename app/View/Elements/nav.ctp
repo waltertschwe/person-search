@@ -12,9 +12,9 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="">Dashboard</a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li> 
+            <li class="active"><a href="/nyu/persons/">Dashboard</a></li>
+            <li><a href="/nyu/persons/multiple_area">Multiple Area</a></li>
+            <li><a href="/nyu/persons/report_non_intersection">Report Non Intersection</a></li> 
           </ul>
            <ul class="nav pull-right">
              <li><?php echo $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout')); ?></li>

@@ -51,7 +51,7 @@
     <tbody>
         <?php 
             foreach($results as $result) {  ?>
-        <tr class="gradeX">
+        <tr class="gradeC">
             <td><?php echo $result['first_name']; ?></td>         
             <td><?php echo $result['last_name']; ?></td>
             <td><?php echo $result['gender']; ?></td>  

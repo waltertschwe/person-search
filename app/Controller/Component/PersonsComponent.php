@@ -7,18 +7,43 @@ class PersonsComponent extends Component {
      	$db = ConnectionManager::getDataSource('default');
         $this->Person = ClassRegistry::init('Person');
      }
+	 
+	 
+	 
+	 public function getPersonWithAddress($lastName, $address, $gender) {
+	 
+		$conditions = "WHERE p.last_name = " . "\"".$lastName."\" 
+		               AND p.gender = " . "\"".$gender."\"
+		               ";
+		
+        $query = "SELECT p.person_id, p.first_name, p.last_name, p.gender, 
+                         a.street, a.city, a.state, a.zip,  
+                         GROUP_CONCAT(DISTINCT(pra.research_area_id)) AS pra_id
+                  FROM person p
+                      INNER JOIN address a
+                      ON a.street = "."\"".$address."\"
+                      LEFT JOIN person_research_area pra
+                      ON p.person_id = pra.person_id
+                  " . $conditions . "
+                  GROUP BY p.person_id
+                 ";
+				
+        $results = $this->Person->query($query);
+		
+        return $results;
+		
+     }
+	 	
 
      # 
      #  Searches for users based off only a last name and gender.
      #  User did not enter an address
 	 #
      public function getPersonsNoAddress($lastName, $gender) {
-       
-		
-		$lastName = "Smith";
-		$gender = "M";
-		
-		$conditions = "WHERE p.last_name = " . "\"".$lastName."\"";
+       	
+		$conditions = "WHERE p.last_name = " . "\"".$lastName."\"
+					   AND p.gender = " . "\"".$gender."\"
+					  ";
 		
         $query = "SELECT p.person_id, p.first_name, p.last_name, p.gender, 
                          GROUP_CONCAT(DISTINCT(pa.address_id)) AS pa_id, 
@@ -136,6 +161,40 @@ class PersonsComponent extends Component {
 		return $results;
 				
 	 }
+	 
+	 public function getResearchAreaId($name) {
+	 	
+		$conditions = "WHERE name = "  . "\"".$name."\"";
+		
+		$query = "SELECT research_area_id 
+				  FROM research_area " . 
+				  $conditions;
+		
+		$results = $this->Person->query($query);
+		$researchAreaId = $results[0]['research_area']['research_area_id'];
+       
+	    return $researchAreaId;
+				  
+	 }
+	 
+	 
+	public function getPersonCompSciIds($compSciId, $bioId) {
+	 	
+		$query = "SELECT pra.person_id
+				  FROM person_research_area pra
+				  WHERE (pra.research_area_id <> 2 and
+				  pra.research_area_id = 1 and pra.research_area_id <>  3)
+				 
+				  
+				  ";
+				  
+	    $results = $this->Person->query($query);
+		var_dump($results);
+		exit();
+		return $results;
+		
+	 }
+	 
 	
 
 
