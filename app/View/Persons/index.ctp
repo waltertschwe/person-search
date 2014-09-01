@@ -8,7 +8,7 @@
     <div class="col-xs-4">
         <div class="input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-            <input name="last_name" type="text" class="form-control" placeholder="Last Name">
+            <input name="last_name" type="text" class="form-control" placeholder="Last Name" required="required">
         </div>
     </div>
     <div class="col-xs-4">

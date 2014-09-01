@@ -10,10 +10,12 @@ class PersonsComponent extends Component {
 	 
 	 public function getPersonWithAddress($lastName, $address, $gender) {
 	 
+	   
 		$conditions = "WHERE p.last_name = " . "\"".$lastName."\" 
-		               AND p.gender = " . "\"".$gender."\"
-		               ";
-		
+	                   AND p.gender = " . "\"".$gender."\"
+	                   ";
+	
+	
         $query = "SELECT p.person_id, p.first_name, p.last_name, p.gender, 
                          a.street, a.city, a.state, a.zip,  
                          GROUP_CONCAT(DISTINCT(pra.research_area_id)) AS pra_id
@@ -25,6 +27,7 @@ class PersonsComponent extends Component {
                   " . $conditions . "
                   GROUP BY p.person_id
                  ";
+		
 				
         $results = $this->Person->query($query);
 		
