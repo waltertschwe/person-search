@@ -126,13 +126,43 @@ class PersonsController extends AppController {
 	}
 	
 	public function report_non_intersection() {
+		
 		$this->layout = 'datatables';
         $this->Person->useTable = 'person';
+		$usersData = array();
 		$compSciId = $this->Persons->getResearchAreaId('Computer Science');
 		$bioId = $this->Persons->getResearchAreaId('Bioengineering');
 		
-		$idsData = $this->Persons->getPersonCompSciIds($compSciId, $bioId); 
-		
+		$personIds = $this->Persons->getPersonCompSciIds($compSciId, $bioId); 
+		$userCounter = 0;
+		foreach($personIds as $personId) {
+			$id = $personId['pra']['person_id'];
+			$personData = $this->Persons->getPersonDataById($id);
+			$addressIds = $this->Persons->getPersonAddressIds($id);
+			
+			
+			
+			## Person Data
+			$usersData[$userCounter]['last_name'] = $personData[0]['p']['last_name'];
+		    $usersData[$userCounter]['first_name'] = $personData[0]['p']['first_name'];
+			$usersData[$userCounter]['gender'] = $personData[0]['p']['gender'];
+			
+			## Address Data
+			$addressCounter = 0;
+			if(!empty($addressIds)) {
+			    foreach($addressIds as $addressData) {
+					$addressId = $addressData['pa']['address_id'];
+				    $addressData = $this->Persons->getAddressById($addressId);
+					 $usersData[$userCounter]['address'][$addressCounter] = $addressData;					  
+					 $addressCounter++;
+		   	    }
+			}
+
+			
+			
+			$userCounter++;
+		}
+		$this->set('results', $usersData);
 	}
 	
 	public function json($personId) {

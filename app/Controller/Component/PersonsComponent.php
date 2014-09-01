@@ -160,6 +160,11 @@ class PersonsComponent extends Component {
 				
 	 }
 	 
+	 public function getResearchNameById($researchId) {
+	 	
+		
+	 }
+	 
 	 public function getResearchAreaId($name) {
 	 	
 		$conditions = "WHERE name = "  . "\"".$name."\"";
@@ -180,15 +185,15 @@ class PersonsComponent extends Component {
 	 	
 		$query = "SELECT pra.person_id
 				  FROM person_research_area pra
-				  WHERE (pra.research_area_id <> 2 and
-				  pra.research_area_id = 1 and pra.research_area_id <>  3)
-				 
-				  
-				  ";
+				  WHERE research_area_id =1
+				  AND person_id NOT IN (
+				      SELECT person_id
+					  FROM person_research_area
+   				      WHERE research_area_id = 2
+                  )";
 				  
 	    $results = $this->Person->query($query);
-		var_dump($results);
-		exit();
+		
 		return $results;
 		
 	}

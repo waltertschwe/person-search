@@ -8,11 +8,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">NYU Medical Center</a>
+          <a class="navbar-brand" href="/nyu/persons/">NYU Medical Center</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/nyu/persons/">Dashboard</a></li>
+            <li class="active"><a href="/nyu/persons/">Person Search</a></li>
             <li><a href="/nyu/persons/multiple_area">Multiple Area</a></li>
             <li><a href="/nyu/persons/report_non_intersection">Report Non Intersection</a></li> 
             <li><a href="/nyu/persons/upload">Upload</a></li>
