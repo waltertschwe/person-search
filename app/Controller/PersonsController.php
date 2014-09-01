@@ -144,6 +144,37 @@ class PersonsController extends AppController {
 		
 		echo $results;
 	}
-    
+	
+	public function upload() {
+		$this->layout = 'datatables';
+		$this->Person->useTable = 'person';
+		
+		if ($this->request->is('post')) {
+		    
+			$tmpFileName = $_FILES['file1']['tmp_name'];
+			move_uploaded_file($tmpFileName, "/tmp/temp.xml");
+			chmod("/tmp/temp.xml", 0777);
+			
+			$dom = new DOMDocument();
+			$dom->load("/tmp/temp.xml");
+			$isValid = $dom->schemaValidate("http://ec2-50-19-187-57.compute-1.amazonaws.com/nyu/xsd/persons.xsd");
+			
+			if($isValid) {
+				$xml =  simplexml_load_file("/tmp/temp.xml");
+				$persons = array();
+				foreach($xml->xpath('//persons/person') as $person) { 
+				    $firstName = (string) $person->first_name;
+					$lastName = (string) $person->last_name;
+					$gender = (string) $person->gender;
+				    $this->Persons->insertPersonRecord($firstName, $lastName, $gender);
+				}
+				
+				$this->Session->setFlash('custom message', 'flash_good');
+			} else {
+				$this->Session->setFlash('custom message', 'flash_bad');
+			}
+			
+		}
+	}
     
 }

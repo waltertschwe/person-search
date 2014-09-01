@@ -8,6 +8,7 @@ class Person extends AppModel {
     
     public $name = 'Person';    
     public $useTable = 'person';
+	public $primaryKey = 'person_id';
 
     public function getPersons($lastName, $address, $gender) {
         //$db = ConnectionManager::getDataSource('default');

@@ -8,8 +8,6 @@ class PersonsComponent extends Component {
         $this->Person = ClassRegistry::init('Person');
      }
 	 
-	 
-	 
 	 public function getPersonWithAddress($lastName, $address, $gender) {
 	 
 		$conditions = "WHERE p.last_name = " . "\"".$lastName."\" 
@@ -193,7 +191,29 @@ class PersonsComponent extends Component {
 		exit();
 		return $results;
 		
-	 }
+	}
+	
+	
+	## Inserts Record Into ORM exmample commented out
+	public function insertPersonRecord($firstName, $lastName, $gender) {
+
+	    $query = "INSERT INTO person (first_name, last_name, gender)
+	              VALUES (" . "\"".$firstName."\","
+	                           . "\"".$lastName."\","
+	               			   . "\"".$gender."\"
+	              )"; 
+				  
+	    $results = $this->Person->query($query);      
+		
+		 /*
+		  NOT USING ORM
+	    $personArray = array();	
+		$personArray['Person']['first_name'] = $firstName;
+		$personArray['Person']['last_name'] = $lastName;
+		$personArray['Person']['gender'] = $gender;
+		$this->Person->save($personArray);
+		*/    
+	}
 	 
 	
 

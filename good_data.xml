@@ -1,0 +1,12 @@
+<persons>
+    <person>
+        <first_name>Walter</first_name>
+        <last_name>Schweitzer</last_name>
+        <gender>M</gender>
+    </person>
+    <person>
+        <first_name>Ted</first_name>
+        <last_name>Williams</last_name>
+        <gender>M</gender>
+    </person>
+</persons>

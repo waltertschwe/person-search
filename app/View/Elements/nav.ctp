@@ -15,6 +15,7 @@
             <li class="active"><a href="/nyu/persons/">Dashboard</a></li>
             <li><a href="/nyu/persons/multiple_area">Multiple Area</a></li>
             <li><a href="/nyu/persons/report_non_intersection">Report Non Intersection</a></li> 
+            <li><a href="/nyu/persons/upload">Upload</a></li>
           </ul>
            <ul class="nav pull-right">
              <li><?php echo $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout')); ?></li>
