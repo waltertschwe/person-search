@@ -46,6 +46,7 @@
             <th>Gender</th>
             <th>Address</th>
             <th>Research Areas</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -85,7 +86,10 @@
 						}
             	    }
             	?>
-            </td>                    
+            </td>  
+            <td>
+            	<a href="/nyu/persons/json/<?php echo $result['person_id']; ?>"><?php echo $this->Html->image('json'); ?></a>
+            </td>                  
          </tr>
          <?php } ?>
         </tbody>
@@ -96,6 +100,7 @@
             <th>Gender</th>
             <th>Address</th>
             <th>Research Areas</th>
+            <th>Actions</th>
         </tr>
     </tfoot>
 </table>

@@ -135,7 +135,7 @@ class PersonsComponent extends Component {
     }
 	
 		 
-	 public function getPersonDataById($personId) {
+	public function getPersonDataById($personId) {
 	 	
 		$conditions = "WHERE p.person_id = " . $personId;
 		

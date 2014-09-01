@@ -28,6 +28,7 @@ class PersonsController extends AppController {
 			   
 		   $userCounter = 0;
 		   foreach($results as $result) {
+		   	   $usersData[$userCounter]['person_id'] = $result['p']['person_id'];
 		   	   $usersData[$userCounter]['last_name'] = $result['p']['last_name'];
 			   $usersData[$userCounter]['first_name'] = $result['p']['first_name'];
 			   $usersData[$userCounter]['gender'] = $result['p']['gender'];
@@ -72,7 +73,7 @@ class PersonsController extends AppController {
 			  		   
 		       $userCounter++; 
             }
-    	
+
 		    $this->set('results', $usersData); 
         } 
     }   
@@ -132,6 +133,16 @@ class PersonsController extends AppController {
 		
 		$idsData = $this->Persons->getPersonCompSciIds($compSciId, $bioId); 
 		
+	}
+	
+	public function json($personId) {
+		$this->autoRender = false;
+		$this->Person->useTable = 'person';
+		$userData = array();
+		$userData = $this->Persons->getPersonDataById($personId);
+		$results = json_encode($userData);
+		
+		echo $results;
 	}
     
     
