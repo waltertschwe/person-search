@@ -43,17 +43,7 @@
             </td>  
             <td>
             	<?php
-            	    if(!empty($result['research'])) {
-            	    	$researchCounter = 1;
-						$researchCount = count($result['research']);
-						foreach($result['research'] as $researchName) {
-							echo $researchName;
-							if($researchCounter < $researchCount) {
-								echo ",<br/>";
-							}
-							$researchCounter++;
-						}
-            	    }
+            	    echo $result['researchArea'];
             	?>
             </td>                    
          </tr>

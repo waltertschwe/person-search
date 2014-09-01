@@ -161,14 +161,23 @@ class PersonsComponent extends Component {
 	 }
 	 
 	 public function getResearchNameById($researchId) {
-	 	
+	 		
+	 	$conditions = "WHERE research_area_id = "  . $researchId;
+		$query = "SELECT name 
+				  FROM research_area " . 
+				  $conditions;
+		
+		$results = $this->Person->query($query);
+		$researchAreaName = $results[0]['research_area']['name'];
+       
+	    return $researchAreaName;
+		
 		
 	 }
 	 
 	 public function getResearchAreaId($name) {
 	 	
-		$conditions = "WHERE name = "  . "\"".$name."\"";
-		
+		$conditions = "WHERE name = "  . "\"".$name."\"";		
 		$query = "SELECT research_area_id 
 				  FROM research_area " . 
 				  $conditions;
@@ -183,7 +192,7 @@ class PersonsComponent extends Component {
 	 
 	public function getPersonCompSciIds($compSciId, $bioId) {
 	 	
-		$query = "SELECT pra.person_id
+		$query = "SELECT pra.person_id, pra.research_area_id
 				  FROM person_research_area pra
 				  WHERE research_area_id =1
 				  AND person_id NOT IN (

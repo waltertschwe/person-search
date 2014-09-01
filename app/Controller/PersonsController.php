@@ -137,10 +137,10 @@ class PersonsController extends AppController {
 		$userCounter = 0;
 		foreach($personIds as $personId) {
 			$id = $personId['pra']['person_id'];
+			$researchId = $personId['pra']['research_area_id'];
 			$personData = $this->Persons->getPersonDataById($id);
 			$addressIds = $this->Persons->getPersonAddressIds($id);
-			
-			
+			$researchName = $this->Persons->getResearchNameById($researchId);
 			
 			## Person Data
 			$usersData[$userCounter]['last_name'] = $personData[0]['p']['last_name'];
@@ -157,8 +157,10 @@ class PersonsController extends AppController {
 					 $addressCounter++;
 		   	    }
 			}
-
-			
+            
+			## Research Area
+			$usersData[$userCounter]['researchArea'] = $researchName;
+ 			
 			
 			$userCounter++;
 		}
