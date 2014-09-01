@@ -79,5 +79,65 @@ class PersonsComponent extends Component {
 		$results = $this->Person->query($query);
 	
 	}  
+ 
+    public function getPersonIdsMultipleAreas() {
+    	
+		## first part of the query counts person_id that are greater than one
+		## second part of the query returns the person_id and research_area_id's that met condition
+		$tableData = $this->Person->query("
+		    SELECT p.person_id, p.research_area_id
+		    FROM person_research_area p
+		    INNER JOIN (
+		        SELECT person_id, COUNT(*)
+		        FROM person_research_area
+		        GROUP BY person_id
+		        HAVING COUNT(*) > 1) temp
+		        ON temp.person_id = p.person_id
+		        ORDER BY person_id
+		");
+		
+		## key for array will be the person_id
+		## values of the array will be the research area ids
+		$userData = array();
+		foreach($tableData as $result) {
+			$personId = $result['p']['person_id'];
+			$researchId = $result['p']['research_area_id'];
+			$userData[$personId][] = $researchId;
+		}
+		
+		return $userData;
+		
+    }
+	
+		 
+	 public function getPersonDataById($personId) {
+	 	
+		$conditions = "WHERE p.person_id = " . $personId;
+		
+		$query =  "SELECT p.first_name, p.last_name, p.gender
+		          FROM person p " . 
+		          $conditions;
+		$results = $this->Person->query($query); 
+		
+		return $results;     
+	 
+	 }
+	 
+	 public function getPersonAddressIds($personId) {
+	 	
+	 	$conditions = " WHERE person_id = " . $personId;
+		
+		$query =  "SELECT pa.address_id
+				  FROM person_address pa" . 
+				  $conditions;
+				  
+		$results = $this->Person->query($query);
+
+		return $results;
+				
+	 }
+	
+
+
 	 
 }

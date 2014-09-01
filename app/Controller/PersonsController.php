@@ -62,16 +62,65 @@ class PersonsController extends AppController {
 		   	
 		   }
 		  
-		   
-		   
 		          
            $this->set('results', $usersData);
         } 
         
-       
-        
     }    
     
+	public function multiple_area() {
+		$this->layout = 'datatables';
+        $this->Person->useTable = 'person';
+		$usersData = array();
+		
+		$idsData = $this->Persons->getPersonIdsMultipleAreas(); 
+		$userCounter = 0; 
+		
+		## key = person_ids, values = research_area_ids
+		foreach($idsData as $key => $values) {
+			
+			## Model Calls to get data
+			$personData = $this->Persons->getPersonDataById($key);
+			$addressIds = $this->Persons->getPersonAddressIds($key);
+			
+			## Person Data
+			$usersData[$userCounter]['last_name'] = $personData[0]['p']['last_name'];
+		    $usersData[$userCounter]['first_name'] = $personData[0]['p']['first_name'];
+			$usersData[$userCounter]['gender'] = $personData[0]['p']['gender'];
+			
+			## Address Data
+			$addressCounter = 0;
+			if(!empty($addressIds)) {
+			    foreach($addressIds as $addressData) {
+					$addressId = $addressData['pa']['address_id'];
+				    $addressData = $this->Persons->getAddressById($addressId);
+					 $usersData[$userCounter]['address'][$addressCounter] = $addressData;					  
+					 $addressCounter++;
+		   	    }
+			}
+
+			## Research Data
+			$researchCounter = 0;
+			foreach($values as $researchId) {
+		        if(!empty($researchId)) {
+		       	   $researchData = $this->Persons->getResearchAreaById($researchId);
+				   $usersData[$userCounter]['research'][$researchCounter] = $researchData;
+				   $researchCounter++; 
+		        }
+			}
+			
+			$userCounter++;
+		}
+		
+		  $this->set('results', $usersData);
+	}
+	
+	public function report_non_intersection() {
+		$this->layout = 'datatables';
+        $this->Person->useTable = 'person';
+		
+		
+	}
     
     
 }
